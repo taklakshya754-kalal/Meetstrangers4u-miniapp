@@ -20,7 +20,7 @@ if (user) {
     `;
 }
 const AdController = window.Adsgram.init({
-    blockId: 39068
+    blockId: "39068"
 });
 async function showAd() {
     try {
