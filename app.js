@@ -22,3 +22,12 @@ if (user) {
 const AdController = window.Adsgram.init({
     blockId: 39068
 });
+async function showAd() {
+    try {
+        await AdController.show();
+
+        alert("✅ Ad completed successfully!");
+    } catch (e) {
+        alert("❌ Ad skipped or failed.");
+    }
+}
