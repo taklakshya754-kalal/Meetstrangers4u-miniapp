@@ -19,3 +19,6 @@ if (user) {
         <p>❌ Open this Mini App from Telegram.</p>
     `;
 }
+const AdController = window.Adsgram.init({
+    blockId: 39068
+});
