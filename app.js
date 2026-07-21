@@ -32,18 +32,43 @@ async function showAd() {
 
         alert("✅ Ad completed successfully!");
 
-        console.log("Sending data to bot...");
+        if (!tg.initDataUnsafe.user) {
+            alert("❌ User data not found");
+            return;
+        }
 
-        
-tg.MainButton.setText("TEST");
-tg.MainButton.show();
+        const userId = tg.initDataUnsafe.user.id;
 
-tg.MainButton.onClick(() => {
-    tg.sendData("hello");
-});
-        
+        console.log("Sending reward for user:", userId);
+
+        const response = await fetch(
+            "https://francisco-businesses-displays-seems.trycloudflare.com/reward",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: userId
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        console.log("Reward response:", result);
+
+        if (result.success) {
+            alert(
+                "🎉 Reward Added!\n\n" +
+                "🪙 Coins: " + result.coins
+            );
+        } else {
+            alert("❌ Reward failed");
+        }
+
     } catch (e) {
         console.error(e);
-        alert("❌ Ad skipped or failed.");
+        alert("❌ Something went wrong");
     }
 }
