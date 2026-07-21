@@ -34,12 +34,14 @@ async function showAd() {
 
         console.log("Sending data to bot...");
 
-        window.Telegram.WebApp.sendData("ad_completed");
+        
+tg.MainButton.setText("TEST");
+tg.MainButton.show();
 
-        setTimeout(() => {
-            window.Telegram.WebApp.close();
-        }, 500);
-
+tg.MainButton.onClick(() => {
+    tg.sendData("hello");
+});
+        
     } catch (e) {
         console.error(e);
         alert("❌ Ad skipped or failed.");
