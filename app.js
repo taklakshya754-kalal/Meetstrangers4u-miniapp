@@ -27,6 +27,7 @@ async function showAd() {
         await AdController.show();
 
         alert("✅ Ad completed successfully!");
+  window.Telegram.WebApp.sendData("ad_completed"); 
     } catch (e) {
         alert("❌ Ad skipped or failed.");
     }
