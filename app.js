@@ -42,7 +42,7 @@ async function showAd() {
         console.log("Sending reward for user:", userId);
 
         const response = await fetch(
-            "https://francisco-businesses-displays-seems.trycloudflare.com/reward",
+            "https://truth-collar-received-reduced.trycloudflare.com/reward",
             {
                 method: "POST",
                 headers: {
