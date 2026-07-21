@@ -25,10 +25,11 @@ const AdController = window.Adsgram.init({
 });
 async function showAd() {
     try {
-        await AdController.show();
+         await AdController.show();
 
-        alert("✅ Ad completed successfully!");
-  window.Telegram.WebApp.sendData("ad_completed"); 
+window.Telegram.WebApp.sendData("ad_completed");
+
+alert("✅ Ad completed successfully!");
     } catch (e) {
         alert("❌ Ad skipped or failed.");
     }
