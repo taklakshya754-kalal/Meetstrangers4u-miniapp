@@ -5,7 +5,8 @@ tg.expand();
 
 const user = tg.initDataUnsafe.user;
 
-/*if (user) {
+/*
+if (user) {
     document.body.innerHTML += `
         <hr>
         <h3>Telegram User</h3>
@@ -20,17 +21,27 @@ const user = tg.initDataUnsafe.user;
     `;
 }
 */
+
 const AdController = window.Adsgram.init({
     blockId: "39068"
 });
+
 async function showAd() {
     try {
-         await AdController.show();
+        await AdController.show();
 
-window.Telegram.WebApp.sendData("ad_completed");
+        alert("✅ Ad completed successfully!");
 
-alert("✅ Ad completed successfully!");
+        console.log("Sending data to bot...");
+
+        window.Telegram.WebApp.sendData("ad_completed");
+
+        setTimeout(() => {
+            window.Telegram.WebApp.close();
+        }, 500);
+
     } catch (e) {
+        console.error(e);
         alert("❌ Ad skipped or failed.");
     }
 }
