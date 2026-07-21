@@ -23,7 +23,7 @@ if (user) {
 */
 
 const AdController = window.Adsgram.init({
-    blockId: "39175"
+    blockId: "39215"
 });
 
 async function showAd() {
