@@ -63,6 +63,9 @@ async function showAd() {
                 "🎉 Reward Added!\n\n" +
                 "🪙 Coins: " + result.coins
             );
+            setTimeout(() => {
+                tg.close();
+            }, 500);
         } else {
             alert("❌ Reward failed");
         }
