@@ -3,9 +3,9 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
+/*
 const user = tg.initDataUnsafe.user;
 
-/*
 if (user) {
     document.body.innerHTML += `
         <hr>
@@ -23,55 +23,21 @@ if (user) {
 */
 
 const AdController = window.Adsgram.init({
-    blockId: "39215"
+    blockId: "39285"
 });
 
 async function showAd() {
     try {
         await AdController.show();
 
-        alert("✅ Ad completed successfully!");
+        alert("🎉 Ad completed successfully!\n\n🪙 Reward will be added automatically.");
 
-        if (!tg.initDataUnsafe.user) {
-            alert("❌ User data not found");
-            return;
-        }
-
-        const userId = tg.initDataUnsafe.user.id;
-
-        console.log("Sending reward for user:", userId);
-
-        const response = await fetch(
-            "https://truth-collar-received-reduced.trycloudflare.com/reward",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    user_id: userId
-                })
-            }
-        );
-
-        const result = await response.json();
-
-        console.log("Reward response:", result);
-
-        if (result.success) {
-            alert(
-                "🎉 Reward Added!\n\n" +
-                "🪙 Coins: " + result.coins
-            );
-            setTimeout(() => {
-                tg.close();
-            }, 500);
-        } else {
-            alert("❌ Reward failed");
-        }
+        setTimeout(() => {
+            tg.close();
+        }, 500);
 
     } catch (e) {
         console.error(e);
-        alert("❌ Something went wrong");
+        alert("❌ Ad skipped or failed.");
     }
 }
