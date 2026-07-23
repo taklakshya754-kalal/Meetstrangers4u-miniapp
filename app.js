@@ -3,41 +3,58 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-/*
-const user = tg.initDataUnsafe.user;
-
-if (user) {
-    document.body.innerHTML += `
-        <hr>
-        <h3>Telegram User</h3>
-        <p>ID: ${user.id}</p>
-        <p>Name: ${user.first_name}</p>
-        <p>Username: @${user.username || "No Username"}</p>
-    `;
-} else {
-    document.body.innerHTML += `
-        <hr>
-        <p>❌ Open this Mini App from Telegram.</p>
-    `;
-}
-*/
-
-const AdController = window.Adsgram.init({
-    blockId: "39368"
-});
-
 async function showAd() {
+
+    if (!tg.initDataUnsafe.user) {
+        alert("❌ Please open this Mini App from Telegram.");
+        return;
+    }
+
+    const userId = tg.initDataUnsafe.user.id;
+
     try {
-        await AdController.show();
 
-        alert("🎉 Ad completed successfully!\n\n🪙 Reward will be added automatically.");
+        // Monetag Rewarded Ad
+        await show_11373894();
 
-        setTimeout(() => {
-            tg.close();
-        }, 500);
+        // Reward API
+        const response = await fetch(
+            "https://mass-pct-acute-focuses.trycloudflare.com/reward",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user_id: userId
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            alert(
+                "🎉 Reward Added!\n\n" +
+                "🪙 Coins: " + result.coins
+            );
+
+            setTimeout(() => {
+                tg.close();
+            }, 500);
+
+        } else {
+
+            alert("❌ Reward failed.");
+
+        }
 
     } catch (e) {
+
         console.error(e);
         alert("❌ Ad skipped or failed.");
+
     }
+
 }
