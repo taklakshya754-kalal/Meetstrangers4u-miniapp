@@ -4,7 +4,7 @@ tg.ready();
 tg.expand();
 
 async function showAd() {
-
+    alert("Button Clicked");
     const user = tg.initDataUnsafe.user;
 
     if (!user) {
@@ -15,8 +15,9 @@ async function showAd() {
     try {
 
         // Show Monetag Rewarded Ad
+        alert("Opening Ad...");
         await show_11373894();
-
+        alert("Ad Finished");
         // Reward User
         const response = await fetch(
             "https://mass-pct-acute-focuses.trycloudflare.com/reward",
