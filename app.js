@@ -3,54 +3,38 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
+const user = tg.initDataUnsafe.user;
+
+// Preload ad
+if (user) {
+    show_11373894({
+        type: "preload",
+        ymid: String(user.id)
+    }).catch(console.log);
+}
+
 async function showAd() {
-    alert("Button Clicked");
-    const user = tg.initDataUnsafe.user;
 
     if (!user) {
-        alert("❌ Please open this Mini App from Telegram.");
+        alert("❌ Open this Mini App from Telegram.");
         return;
     }
 
     try {
 
-        // Show Monetag Rewarded Ad
         alert("Opening Ad...");
-        await show_11373894();
-        alert("Ad Finished");
-        // Reward User
-        const response = await fetch(
-            "https://mass-pct-acute-focuses.trycloudflare.com/reward",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    user_id: user.id
-                })
-            }
-        );
 
-        const result = await response.json();
+        await show_11373894({
+            ymid: String(user.id)
+        });
 
-        if (result.success) {
+        alert("✅ Ad Finished");
 
-            alert(`🎉 Reward Added!\n\n🪙 Coins: ${result.coins}`);
+    } catch (e) {
 
-            tg.close();
+        console.log(e);
 
-        } else {
-
-            alert("❌ Reward failed.");
-
-        }
-
-    } catch (err) {
-
-        console.error(err);
-
-        alert("❌ Ad skipped, failed or reward error.");
+        alert("❌ Ad Failed");
 
     }
 
