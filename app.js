@@ -3,10 +3,13 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
+// SDK loaded ya nahi
+alert("SDK: " + typeof show_11373894);
+
 const user = tg.initDataUnsafe.user;
 
-// Preload ad
-if (user) {
+// Preload
+if (user && typeof show_11373894 === "function") {
     show_11373894({
         type: "preload",
         ymid: String(user.id)
@@ -15,8 +18,15 @@ if (user) {
 
 async function showAd() {
 
+    alert("Button Clicked");
+
     if (!user) {
-        alert("❌ Open this Mini App from Telegram.");
+        alert("❌ Please open this Mini App from Telegram.");
+        return;
+    }
+
+    if (typeof show_11373894 !== "function") {
+        alert("❌ Monetag SDK not loaded!");
         return;
     }
 
@@ -24,9 +34,11 @@ async function showAd() {
 
         alert("Opening Ad...");
 
-        await show_11373894({
+        const result = await show_11373894({
             ymid: String(user.id)
         });
+
+        console.log(result);
 
         alert("✅ Ad Finished");
 
@@ -34,7 +46,7 @@ async function showAd() {
 
         console.log(e);
 
-        alert("❌ Ad Failed");
+        alert("❌ Ad Failed\n\n" + JSON.stringify(e));
 
     }
 
